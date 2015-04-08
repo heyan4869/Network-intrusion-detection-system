@@ -1,4 +1,4 @@
-# train a naive bayes classifier
+# train a naive bayes classifier with package e1071
 library("e1071")
 
 # read the train and test data
@@ -11,15 +11,15 @@ testData = read.csv(testPath, header = FALSE);
 model <- naiveBayes(V42 ~ ., data = trainData);
 
 # classify the test data
-predict(model, testData);
-predict(model, testData, type = "raw");
-pred <- predict(model, trainData);
+predict(model, trainData[1:10000, ]);
+predict(model, trainData[1:10000, ], type = "raw");
+pred <- predict(model, trainData[10001:494021, 1:41]);
 # table(pred, trainData[, 42]);
 
 # calculate the accuracy
 count = 0;
 for (i in 1: length(pred)) {
-    if (pred[i] == trainData[i, 42]) {
+    if (pred[i] == trainData[i+10000, 42]) {
         count = count + 1;
     }
 }
